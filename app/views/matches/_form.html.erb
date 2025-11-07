@@ -1,0 +1,42 @@
+<%= form_with(model: match) do |form| %>
+  <% if match.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+        <% match.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :code, style: "display: block" %>
+    <%= form.number_field :code %>
+  </div>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :players %>
+    <% @players.each do |player| %>
+      <div>
+        <%= check_box_tag "match[player_ids][]", player.id, @match.players.include?(player), id: "match_player_ids_#{player.id}" %>
+        <%= label_tag "match_player_ids_#{player.id}", player.name %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :result, style: "display: block" %>
+    <%= form.text_field :result %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
