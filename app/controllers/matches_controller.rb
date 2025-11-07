@@ -18,6 +18,7 @@ class MatchesController < ApplicationController
 
   # GET /matches/1/edit
   def edit
+    @players = Player.all
   end
 
   # POST /matches or /matches.json
@@ -39,6 +40,7 @@ class MatchesController < ApplicationController
 
   # PATCH/PUT /matches/1 or /matches/1.json
   def update
+    binding.pry
     respond_to do |format|
       if @match.update(match_params)
         format.html { redirect_to @match, notice: "Match was successfully updated.", status: :see_other }
@@ -68,6 +70,10 @@ class MatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def match_params
-      params.expect(match: [ :code, :name, :result , player_ids: []])
+      # params.expect(match: [ :code, :name, :winner_name, :loser_name, :winner_id, :loser_id, player_ids: []])
+
+      params.require(:match).permit(
+      :code, :name, :winner_name, :loser_name, :winner_id, :loser_id, player_ids: []
+    )
     end
 end

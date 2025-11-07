@@ -7,6 +7,9 @@
 <div id="matches">
   <% @matches.each do |match| %>
     <%= render match %>
+    <% if match.players.any? %>
+        Players: <%= match.players.map(&:name).join(', ') %>
+    <% end %>
     <p>
       <%= link_to "Show this match", match %>
     </p>

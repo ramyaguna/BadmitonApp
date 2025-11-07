@@ -32,8 +32,23 @@
   </div>
 
   <div>
-    <%= form.label :result, style: "display: block" %>
-    <%= form.text_field :result %>
+    <%= form.label :Winner, style: "display: block" %>
+    <%  @match.players.each do |player| %>
+      <div>
+        <%= radio_button_tag :winner_name, player.id, id: "match_player_winner_ids_#{player.id}" %>
+          <%= label_tag "match_player_ids_#{player.id}", player.name%>
+      </div>
+    <% end %>
+  </div>
+  
+   <div>
+    <%= form.label :Runner, style: "display: block" %>
+    <%  @match.players.each do |player| %>
+      <div>
+        <%= radio_button_tag :loser_name, player.id, id: "match_player_loser_ids_#{player.id}" %>
+          <%= label_tag "match_player_ids_#{player.id}", player.name%>
+      </div>
+    <% end %>
   </div>
 
   <div>
